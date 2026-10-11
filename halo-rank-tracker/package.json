@@ -1,0 +1,65 @@
+{
+  "name": "halo-rank-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reads Halo Infinite gamertags from accounts.txt, fetches CSR for ranked playlists once a day, caches to JSON, and serves a local webpage.",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "serve": "node src/index.js --serve-only",
+    "fetch": "node src/index.js --fetch-only",
+    "fetch:force": "node src/index.js --fetch-only --force",
+    "login": "node src/auth/login.js",
+    "badges": "node scripts/download-badges.mjs",
+    "app": "electron .",
+    "dist": "electron-builder --win",
+    "dist:nsis": "electron-builder --win nsis",
+    "dist:portable": "electron-builder --win portable",
+    "dist:dir": "electron-builder --win --dir",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.haloranktracker.app",
+    "productName": "Halo Rank Tracker",
+    "asar": true,
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "public/**/*",
+      "package.json",
+      "!**/*.map"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-portable-${version}.${ext}"
+    }
+  }
+}

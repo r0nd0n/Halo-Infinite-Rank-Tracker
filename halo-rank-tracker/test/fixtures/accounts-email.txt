@@ -1,0 +1,9 @@
+# Fixture: gamertag-only and gamertag-email forms.
+# Blank lines and lines starting with "#" are ignored.
+# Duplicate gamertags are removed (case-insensitively).
+
+MasterChief-chief@example.com
+Arbiter
+Cortana-cortana@example.com
+OnyxGrinder-onyx.grinder@example.com
+MasterChief-other@example.com
